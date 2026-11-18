@@ -1,0 +1,12 @@
+const SAMPLE_DOCS=[
+{id:'POL-101',title:'Remote working arrangements',category:'People',text:'Remote schedules require manager agreement. Teams document working hours and availability before changing a regular schedule. Employees keep their contact details current.'},
+{id:'FIN-204',title:'Expense reimbursement',category:'Finance',text:'Submit expense claims with receipts and a business purpose within 30 days of purchase. The finance team reviews each claim before reimbursement. Missing receipts require an explanation.'},
+{id:'SEC-302',title:'Lost laptop response',category:'Security',text:'Report a lost or stolen laptop to the security team immediately. Include the device identifier and last known location. Security coordinates access revocation and incident tracking.'},
+{id:'ENG-401',title:'Production incident escalation',category:'Engineering',text:'For a production outage, contact the on-call engineer and open an incident record. Record the start time, user impact and mitigation steps. Share a written incident review after recovery.'},
+{id:'PEO-105',title:'Annual leave requests',category:'People',text:'Request planned annual leave through the manager approval process before confirming travel dates. Check team coverage and update the shared calendar after approval.'},
+{id:'ENG-405',title:'API request limits',category:'Engineering',text:'Clients receiving HTTP 429 should retry with exponential backoff and respect the Retry-After header. Avoid immediate repeated requests. Log request identifiers for debugging.'},
+{id:'SEC-309',title:'Service credentials',category:'Security',text:'Store API keys and service credentials in the approved secret manager. Never commit credentials to a repository. Rotate exposed keys and notify the security team.'},
+{id:'FIN-208',title:'Travel approval',category:'Finance',text:'Get manager approval before booking business travel. Include the destination, dates and estimated cost. Submit approved travel expenses with receipts after the trip.'}
+];
+const EVAL_CASES=[{query:'lost laptop security',expected:'SEC-302'},{query:'expense receipts reimbursement',expected:'FIN-204'},{query:'HTTP 429 retry backoff',expected:'ENG-405'},{query:'annual leave travel dates',expected:'PEO-105'},{query:'production outage on-call',expected:'ENG-401'},{query:'API keys credentials repository',expected:'SEC-309'}];
+if(typeof module!=='undefined')module.exports={SAMPLE_DOCS,EVAL_CASES};

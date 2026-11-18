@@ -1,0 +1,1 @@
+{"name":"sourcedesk","version":"1.0.0","private":true,"description":"Inspectable document retrieval workbench","scripts":{"test":"node --test tests/search.test.js","start":"python3 -m http.server 8000"}}

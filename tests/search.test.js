@@ -1,0 +1,13 @@
+const test=require('node:test');const assert=require('node:assert/strict');const {search,evaluate}=require('../search.js');const {SAMPLE_DOCS,EVAL_CASES}=require('../data.js');
+test('lost laptop retrieves security policy',()=>assert.equal(search(SAMPLE_DOCS,'lost laptop')[0].id,'SEC-302'));
+test('empty corpus',()=>assert.deepEqual(search([],'hello'),[]));
+test('unknown terms return no matches',()=>assert.deepEqual(search(SAMPLE_DOCS,'astrophysics quasar'),[]));
+test('empty query',()=>assert.deepEqual(search(SAMPLE_DOCS,'  '),[]));
+test('case and punctuation normalize',()=>assert.deepEqual(search(SAMPLE_DOCS,'LAPTOP!'),search(SAMPLE_DOCS,'laptop')));
+test('limits results',()=>assert.equal(search(SAMPLE_DOCS,'team request approval',{limit:1}).length,1));
+test('no empty text divide by zero',()=>assert.deepEqual(search([{id:'x',title:'',text:''}],'x'),[]));
+test('deterministic tie ordering',()=>assert.equal(search([{id:'b',title:'word',text:''},{id:'a',title:'word',text:''}],'word')[0].id,'a'));
+test('evaluation expected rank',()=>assert.equal(evaluate(SAMPLE_DOCS,EVAL_CASES).rows[0].rank,1));
+test('empty evaluation',()=>assert.equal(evaluate(SAMPLE_DOCS,[]).mrr,0));
+test('missing expected source counts zero',()=>assert.equal(evaluate(SAMPLE_DOCS,[{query:'lost laptop',expected:'missing'}]).mrr,0));
+test('overlap ranks matched tokens',()=>assert.equal(search(SAMPLE_DOCS,'API keys credentials',{method:'overlap'})[0].id,'SEC-309'));
